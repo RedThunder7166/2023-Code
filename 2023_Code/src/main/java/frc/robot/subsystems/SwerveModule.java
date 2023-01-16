@@ -17,7 +17,6 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -65,9 +64,18 @@ public class SwerveModule extends SubsystemBase {
       double angleZero,
       ShuffleboardLayout container) {
 
+
+
+
+        
     // Initialize the motors
     m_driveMotor = new WPI_TalonFX(driveMotorChannel);
     m_turningMotor = new WPI_TalonFX(turningMotorChannel);
+
+    m_driveMotor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 45, 0.5)); //40, 45, 0.5
+    //m_driveMotor.configClosedloopRamp(0.25);
+    m_driveMotor.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 40, 45, 0.5));
+    m_driveMotor.setNeutralMode(NeutralMode.Brake);
 
     // Configure the encoders for both motors
 

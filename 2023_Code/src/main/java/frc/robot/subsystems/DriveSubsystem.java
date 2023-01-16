@@ -5,19 +5,14 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.GenericEntry;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 
-import com.ctre.phoenix.sensors.Pigeon2;
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
-import com.ctre.phoenix.sensors.PigeonIMU.PigeonState;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
