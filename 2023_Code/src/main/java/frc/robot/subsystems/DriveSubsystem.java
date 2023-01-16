@@ -7,6 +7,10 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+
+import com.ctre.phoenix.sensors.Pigeon2;
+import com.ctre.phoenix.sensors.PigeonIMU.PigeonState;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
@@ -118,6 +122,9 @@ public class DriveSubsystem extends SubsystemBase {
     // Update the odometry in the periodic block
 
     gyroEntry.setDouble(m_gyro.getAngle());
+    System.out.println(m_gyro.getAngle());
+    SmartDashboard.putNumber("Gyro Entry 2023", m_gyro.getAngle());
+
 
     m_odometry.update(
       m_gyro.getRotation2d(),
@@ -139,7 +146,13 @@ public class DriveSubsystem extends SubsystemBase {
   // Resets the odometry to the specified pose
 
   public void resetOdometry(Pose2d pose){
-    m_odometry.resetPosition(m_gyro.getRotation2d(), null, pose); // TODO: ADD MODULEPOSITIONS
+    m_odometry.resetPosition(m_gyro.getRotation2d(), 
+    new SwerveModulePosition[] {
+      new SwerveModulePosition(m_frontLeft.getPosition(), new Rotation2d(m_gyro.getAngle())),
+      new SwerveModulePosition(m_frontRight.getPosition(), new Rotation2d(m_gyro.getAngle())),
+      new SwerveModulePosition(m_rearLeft.getPosition(), new Rotation2d(m_gyro.getAngle())),
+      new SwerveModulePosition(m_rearRight.getPosition(), new Rotation2d(m_gyro.getAngle())),
+    }, pose); // TODO: CONFIRM THAT WE DIDNT SCREW UP
   }
 
   /**  Method to drive the robot using joystick info
@@ -223,4 +236,5 @@ public class DriveSubsystem extends SubsystemBase {
   public double getTurnRate(){
     return m_gyro.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
   }
+
 }
