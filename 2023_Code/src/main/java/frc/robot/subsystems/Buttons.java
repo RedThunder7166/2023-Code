@@ -50,7 +50,7 @@ public class Buttons extends SubsystemBase {
     return m_buttonBoard.getRawButton(id);
   }
   public int getPressedId() {
-    for (int i = 1; i < 10; i++) {
+    for (int i = 1; i < 14; i++) {
       if (isPressed(i)) {
         return i;
       }
@@ -67,17 +67,17 @@ public class Buttons extends SubsystemBase {
     //   SmartDashboard.putBoolean("Button one?", false);
     // }
 
-    if (isPressed(kNodeOneButton)) {
-      SmartDashboard.putBoolean("Button one?", true);
-    } else {
+    // if (isPressed(kNodeOneButton)) {
+    //   SmartDashboard.putBoolean("Button one?", true);
+    // } else {
        
-      SmartDashboard.putBoolean("Button one?", false);
-    }
-    if (isPressed(kNodeTwoButton)) {
-      SmartDashboard.putBoolean("Button two?", true);
-    } else {
-      SmartDashboard.putBoolean("Button two?", false);
-    }
+    //   SmartDashboard.putBoolean("Button one?", false);
+    // }
+    // if (isPressed(kNodeTwoButton)) {
+    //   SmartDashboard.putBoolean("Button two?", true);
+    // } else {
+    //   SmartDashboard.putBoolean("Button two?", false);
+    // }
     // if (isPressed(kNodeThreeButton)) {
 
     // } else {
