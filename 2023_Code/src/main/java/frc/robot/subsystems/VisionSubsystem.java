@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.photonvision.*;
 import org.photonvision.targeting.PhotonPipelineResult;
+import org.photonvision.targeting.PhotonTrackedTarget;
 
 
 public class VisionSubsystem extends SubsystemBase {
@@ -40,27 +41,72 @@ public class VisionSubsystem extends SubsystemBase {
   public boolean hasTargets(){
     return camera.getLatestResult().hasTargets();
   }
+  public PhotonTrackedTarget getTarget(){
+    return camera.getLatestResult().getBestTarget();
+  }
   
-​
+
   @Override
   public void periodic() {
   
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("BUTTON PRESSING", -1);
+
+    PhotonTrackedTarget target = getTarget();
     int pressed = buttons.getPressedId();
-    if (hasTargets() && pressed != 0) {
-     double range = getRange();
+
+    if (/*target != null &&*/ pressed != 0) {
+    //  double range = getRange();
      switch(pressed) {
       case 1:
-        System.out.println("PRESSING ONE");
+        // SmartDashboard.putBoolean("PRESSING ONE WITH TARGET", true);
+        SmartDashboard.putNumber("BUTTON PRESSING", 1);
+        // System.out.println("PRESSING ONE");
+        break;
       case 2:
-        System.out.println("PRESSING TWO");
+        // System.out.println("PRESSING TWO");
+        // SmartDashboard.putBoolean("PRESSING TWO WITH TARGET", true);
+        SmartDashboard.putNumber("BUTTON PRESSING", 2);
+        break;
+      case 3:
+        SmartDashboard.putNumber("BUTTON PRESSING", 3);
+        break;
+      case 4:
+        SmartDashboard.putNumber("BUTTON PRESSING", 4);
+        break;
+      case 5:
+        SmartDashboard.putNumber("BUTTON PRESSING", 5);
+        break;
+      case 6:
+        SmartDashboard.putNumber("BUTTON PRESSING", 6);
+        break;
+      case 7:
+        SmartDashboard.putNumber("BUTTON PRESSING", 7);
+        break;
+      case 8:
+        SmartDashboard.putNumber("BUTTON PRESSING", 8);
+        break;
+      case 9:
+        SmartDashboard.putNumber("BUTTON PRESSING", 9);
+        break;
+      case 10:
+        SmartDashboard.putNumber("BUTTON PRESSING", 10);
+        break;
+      // default:
+      //   SmartDashboard.putNumber("BUTTON PRESSING", -1);
+      
       
      }
      
    }
+   int ID = -1;
+   if (target != null) {
+    ID = target.getFiducialId();
+  }
+  SmartDashboard.putNumber("TARGET ID", (double) ID);
    
    
-​
+
   //  SmartDashboard.putBoolean("Do I Has Targets?", hasTargets());
   
   }
