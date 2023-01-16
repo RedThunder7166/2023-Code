@@ -6,6 +6,10 @@ package frc.robot;
 
 import java.util.List;
 
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.math.controller.PIDController;
@@ -99,51 +103,56 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // Create config for trajectory
-    TrajectoryConfig config = 
-      new TrajectoryConfig(
-        AutoConstants.kMaxSpeedMetersPerSecond,
-        AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-      // Add kinematics to ensure max speed is actually obeyed
-      .setKinematics(DriveConstants.kDriveKinematics);
 
-    Trajectory exampleTrajectory = 
-      TrajectoryGenerator.generateTrajectory(
-        new Pose2d(0, 0, new Rotation2d(0)), 
-        List.of(new Translation2d(1, 0)),
-        new Pose2d(1, 1, new Rotation2d(90)),
-        config);
+    PathPlannerTrajectory traj = PathPlanner.loadPath("Square", new PathConstraints(2, 3));
 
-    /** thetaController is for the x, y, and theta motions of the robot
-     * Error for x/y is meters, theta is degrees/radians
-     * Tune them by making solo x/y trajectories as well as theta trajectories
-    */
+    return m_robotDrive.followTrajectoryCommand(traj, true);
 
-    var thetaController = 
-      new ProfiledPIDController(
-        AutoConstants.kPThetaController, 0 , 0, AutoConstants.kThetaControllerConstraints);
+    // // Create config for trajectory
+    // TrajectoryConfig config = 
+    //   new TrajectoryConfig(
+    //     AutoConstants.kMaxSpeedMetersPerSecond,
+    //     AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+    //   // Add kinematics to ensure max speed is actually obeyed
+    //   .setKinematics(DriveConstants.kDriveKinematics);
+
+    // Trajectory exampleTrajectory = 
+    //   TrajectoryGenerator.generateTrajectory(
+    //     new Pose2d(0, 0, new Rotation2d(0)), 
+    //     List.of(new Translation2d(1, 0)),
+    //     new Pose2d(1, 1, new Rotation2d(90)),
+    //     config);
+
+    // /** thetaController is for the x, y, and theta motions of the robot
+    //  * Error for x/y is meters, theta is degrees/radians
+    //  * Tune them by making solo x/y trajectories as well as theta trajectories
+    // */
+
+    // var thetaController = 
+    //   new ProfiledPIDController(
+    //     AutoConstants.kPThetaController, 0 , 0, AutoConstants.kThetaControllerConstraints);
     
-    thetaController.enableContinuousInput(-Math.PI, Math.PI);
+    // thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-    SwerveControllerCommand swerveControllerCommand =
-      new SwerveControllerCommand(
-        exampleTrajectory,
-        m_robotDrive::getPose, //Functional interface to feed the supplier
-        DriveConstants.kDriveKinematics,
+    // SwerveControllerCommand swerveControllerCommand =
+    //   new SwerveControllerCommand(
+    //     exampleTrajectory,
+    //     m_robotDrive::getPose, //Functional interface to feed the supplier
+    //     DriveConstants.kDriveKinematics,
 
-        // Position controllers
-        new PIDController(AutoConstants.kPXController, 0, 0),
-        new PIDController(AutoConstants.kPYController, 0, 0),
-        thetaController,
-        m_robotDrive::setModuleStates,
-        m_robotDrive);
+    //     // Position controllers
+    //     new PIDController(AutoConstants.kPXController, 0, 0),
+    //     new PIDController(AutoConstants.kPYController, 0, 0),
+    //     thetaController,
+    //     m_robotDrive::setModuleStates,
+    //     m_robotDrive);
 
-    // Reset odometry to the starting pose of the trajectory
-    m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
+    // // Reset odometry to the starting pose of the trajectory
+    // m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
 
-    // Run path following command, then stop at end
+    // // Run path following command, then stop at end
       
-    return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, true));//changed from false to true
+    // return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, true));
   }
 
   private static double deadband(double value, double deadband) {

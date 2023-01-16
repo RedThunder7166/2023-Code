@@ -9,8 +9,12 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 
 import com.ctre.phoenix.sensors.Pigeon2;
+import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import com.ctre.phoenix.sensors.PigeonIMU.PigeonState;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
@@ -23,6 +27,9 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
@@ -99,7 +106,8 @@ public class DriveSubsystem extends SubsystemBase {
  
 
   // Initializing the gyro sensor
-  private final Gyro m_gyro = new ADXRS450_Gyro();
+  //private final Gyro m_gyro = new ADXRS450_Gyro();
+  private final WPI_Pigeon2 m_gyro = new WPI_Pigeon2(26);
 
   // Odometry class for tracking robot pose
   SwerveDriveOdometry m_odometry =
@@ -122,8 +130,8 @@ public class DriveSubsystem extends SubsystemBase {
     // Update the odometry in the periodic block
 
     gyroEntry.setDouble(m_gyro.getAngle());
-    System.out.println(m_gyro.getAngle());
     SmartDashboard.putNumber("Gyro Entry 2023", m_gyro.getAngle());
+    SmartDashboard.putNumber("Pitch", m_gyro.getPitch());
 
 
     m_odometry.update(
@@ -237,4 +245,25 @@ public class DriveSubsystem extends SubsystemBase {
     return m_gyro.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
   }
 
+  public Command followTrajectoryCommand(PathPlannerTrajectory traj, boolean isFirstPath){
+    return new SequentialCommandGroup(
+      new InstantCommand(() -> {
+        //Reset odometry for the firs thatt you run during auto
+        if(isFirstPath){
+          this.resetOdometry(traj.getInitialHolonomicPose());
+        }
+      }),
+      new PPSwerveControllerCommand(
+        traj,
+        this::getPose, //Pose supplier
+        DriveConstants.kDriveKinematics,
+        new PIDController(0, 0, 0),
+        new PIDController(0, 0, 0),
+        new PIDController(0, 0, 0),
+        this::setModuleStates,
+        true,
+        this
+      )
+    );
+  }
 }
