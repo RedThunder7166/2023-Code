@@ -41,7 +41,7 @@ public class VisionSubsystem extends SubsystemBase {
     return camera.getLatestResult().hasTargets();
   }
   
-​
+
   @Override
   public void periodic() {
   
@@ -60,7 +60,7 @@ public class VisionSubsystem extends SubsystemBase {
    }
    
    
-​
+
   //  SmartDashboard.putBoolean("Do I Has Targets?", hasTargets());
   
   }
