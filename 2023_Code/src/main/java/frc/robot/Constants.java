@@ -36,10 +36,10 @@ public final class Constants {
         public static final int kFrontRightTurningEncoderPorts = 12;
         public static final int kRearRightTurningEncoderPorts = 11;
 
-        public static final double kFrontLeftAngleZero = 58.97 ; // FIXME: Add angle offset TODO: double check that this doesnt break everything
-        public static final double kRearLeftAngleZero = 56.777; // FIXME: Add angle offset, sign change
-        public static final double kFrontRightAngleZero = 85.868; // FIXME: Add angle offset
-        public static final double kRearRightAngleZero = -16.265; // FIXME: Add angle offset sing change
+        public static final double kFrontLeftAngleZero = -120.410; // FIXME: Add angle offset TODO: double check that this doesnt break everything
+        public static final double kRearLeftAngleZero = 56.338; // FIXME: Add angle offset, sign change
+        public static final double kFrontRightAngleZero = 82.53; // FIXME: Add angle offset
+        public static final double kRearRightAngleZero = -17.051; // FIXME: Add angle offset sing change
     
         public static final boolean kFrontLeftTurningEncoderReversed = false;
         public static final boolean kRearLeftTurningEncoderReversed = true;
@@ -76,11 +76,11 @@ public final class Constants {
         // for *your* robot's drive.
         // The RobotPy Characterization Toolsuite provides a convenient tool for obtaining these
         // values for your robot.
-        public static final double ksVolts = 0.509;
-        public static final double kvVoltSecondsPerMeter = 2.73;
-        public static final double kaVoltSecondsSquaredPerMeter = 0.124;
-        public static final double kMaxSpeedMetersPerSecond = 2;
-        public static final double kMaxRotationalSpeedMetersPerSecond = 4; // Constant multiplied by controller input
+        public static final double ksVolts = 0.129;//.509
+        public static final double kvVoltSecondsPerMeter = 2.05;//2.73
+        public static final double kaVoltSecondsSquaredPerMeter = 0.131;//.124
+        public static final double kMaxSpeedMetersPerSecond = 5;
+        public static final double kMaxRotationalSpeedMetersPerSecond = 6; // Constant multiplied by controller input
 
         public static final double ksTurning = 0.742; // FIXME feedforward turning
         public static final double kvTurning = 0.216;
@@ -112,10 +112,10 @@ public final class Constants {
         //     // Assumes the encoders are on a 1:1 reduction with the module shaft.
         //     (2 * Math.PI) / (double) kTurningFalconEncoderCPR;
     
-        public static final double kPModuleTurningController = 7.5; // FIXME kp Turning
-        public static final double kDModuleTurningController = .1; // FIXME kD Turning
+        public static final double kPModuleTurningController = 7.75; // FIXME kp Turning
+        public static final double kDModuleTurningController = 0; // FIXME kD Turning
     
-        public static final double kPModuleDriveController = 3; // FIXME kp driving
+        public static final double kPModuleDriveController = .1; // FIXME kp driving
       }
     
       public static final class OIConstants {
@@ -129,7 +129,7 @@ public final class Constants {
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
         public static final double kMaxAngularAccelerationRadiansPerSecondSquared = Math.PI;
     
-        public static final double kPXController = 2;
+        public static final double kPXController = 2;//why 2
         public static final double kPYController = 2;
         public static final double kPThetaController = 2;
     
@@ -141,12 +141,12 @@ public final class Constants {
 
       public static final class MechanismConstants{
 
-        public static final int kIntakeMotor = 0;  // FIXME change this
-        public static final int kIndexerMotor1 = 1; //FIXME change this
-        public static final int kIndexerMotor2 = 2; //FIXME change this
-        public static final int kExteriorClimb = 0; //FIXME change this 
-        public static final int kInteriorClimb = 0; //FIXME change this
-        public static final int kInteriorTrack = 0; //FIXME change this
-        public static final int kExteriorTrack = 0; //FIXME change this 
+       // public static final int kIntakeMotor = 0;  // FIXME change this
+       // public static final int kIndexerMotor1 = 1; //FIXME change this
+       // public static final int kIndexerMotor2 = 2; //FIXME change this
+       // public static final int kExteriorClimb = 0; //FIXME change this 
+       // public static final int kInteriorClimb = 0; //FIXME change this
+       // public static final int kInteriorTrack = 0; //FIXME change this
+       // public static final int kExteriorTrack = 0; //FIXME change this 
       }
     }

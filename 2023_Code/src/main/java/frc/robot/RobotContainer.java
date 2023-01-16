@@ -57,10 +57,11 @@ public class RobotContainer {
       new RunCommand(
         () -> 
           m_robotDrive.drive(
-            modifyAxis(m_driverController.getLeftX()) // xAxis
-            * DriveConstants.kMaxSpeedMetersPerSecond * -1, 
-            modifyAxis(m_driverController.getLeftY()) // yAxis
-            * DriveConstants.kMaxSpeedMetersPerSecond * -1, 
+            modifyAxis(m_driverController.getLeftY()) // xAxis
+            * DriveConstants.kMaxSpeedMetersPerSecond * -1,
+            modifyAxis(m_driverController.getLeftX()) // yAxis
+            * DriveConstants.kMaxSpeedMetersPerSecond * -1
+            , 
             modifyAxis(m_driverController.getRightX()) // rot
             * DriveConstants.kMaxRotationalSpeedMetersPerSecond * -1, 
             true),
@@ -80,6 +81,8 @@ public class RobotContainer {
         new Button(m_driverController::getBackButton)
         // No requirements because we don't need to interrupt anything
         .whenPressed(m_robotDrive::zeroHeading);
+
+
   }
 
 
@@ -140,7 +143,7 @@ public class RobotContainer {
 
     // Run path following command, then stop at end
       
-    return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false));
+    return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, true));//changed from false to true
   }
 
   private static double deadband(double value, double deadband) {
