@@ -12,23 +12,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Buttons extends SubsystemBase {
   /** Creates a new Buttons. */
-  GenericHID m_buttonBoard = new GenericHID(0);
+  GenericHID m_buttonBoard = new GenericHID(5);
 
-  // String[] buttons = {
-  //   "nodeone",
-  //   "nodetwo",
-  //   "nodethree",
-  //   "nodefour",
-  //   "nodefive",
-  //   "nodesix",
-  //   "nodeseven",
-  //   "nodeeight",
-  //   "nodenine",
-  //   "reset",
-  //   "stop",
-  //   "wristup",
-  //   "wristdown"
-  // };
   int kNodeOneButton = 1;
   int kNodeTwoButton = 2;
   int kNodeThreeButton = 3;

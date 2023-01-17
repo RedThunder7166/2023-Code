@@ -6,12 +6,15 @@ package frc.robot;
 
 import java.util.List;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
+
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.simulation.GenericHIDSim;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -41,7 +44,8 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-  private final VisionSubsystem m_vision = new VisionSubsystem(new Buttons());
+  private final VisionSubsystem m_vision = new VisionSubsystem(new Buttons(), m_robotDrive);
+  private final Buttons m_Buttons = new Buttons();
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
@@ -75,6 +79,8 @@ public class RobotContainer {
             
         m_robotDrive));
 
+
+
       
     
   }
@@ -86,11 +92,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-        // Back button zeros the gyroscope
+        // Back button zeros the gyroscope 
         new Button(m_driverController::getBackButton)
         // No requirements because we don't need to interrupt anything
         .whenPressed(m_robotDrive::zeroHeading);
-
 
   }
 

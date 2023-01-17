@@ -5,6 +5,9 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -13,6 +16,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.photonvision.*;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
+
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
 
 
 public class VisionSubsystem extends SubsystemBase {
@@ -23,9 +30,11 @@ public class VisionSubsystem extends SubsystemBase {
 
   private PhotonCamera camera = new PhotonCamera("gloworm");
   private Buttons buttons;
+  private DriveSubsystem m_drive;
 
-  public VisionSubsystem(Buttons bs) {
+  public VisionSubsystem(Buttons bs, DriveSubsystem d) {
     buttons = bs;
+    m_drive = d;
   }
   
   public double getRange(){
@@ -61,6 +70,8 @@ public class VisionSubsystem extends SubsystemBase {
       case 1:
         // SmartDashboard.putBoolean("PRESSING ONE WITH TARGET", true);
         SmartDashboard.putNumber("BUTTON PRESSING", 1);
+        PathPlannerTrajectory traj = PathPlanner.loadPath("New Path", new PathConstraints(2, 2));
+        m_drive.followTrajectoryCommand(traj, true);
         // System.out.println("PRESSING ONE");
         break;
       case 2:
@@ -94,8 +105,6 @@ public class VisionSubsystem extends SubsystemBase {
         break;
       // default:
       //   SmartDashboard.putNumber("BUTTON PRESSING", -1);
-      
-      
      }
      
    }

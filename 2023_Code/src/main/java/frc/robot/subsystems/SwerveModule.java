@@ -72,9 +72,9 @@ public class SwerveModule extends SubsystemBase {
     m_driveMotor = new WPI_TalonFX(driveMotorChannel);
     m_turningMotor = new WPI_TalonFX(turningMotorChannel);
 
-    m_driveMotor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 45, 0.5)); //40, 45, 0.5
+    m_driveMotor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 20, 25, 0.5)); //40, 45, 0.5
     //m_driveMotor.configClosedloopRamp(0.25);
-    m_driveMotor.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 40, 45, 0.5));
+    m_driveMotor.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 20, 25, 0.5));//changed to 20, 25, .05
     m_driveMotor.setNeutralMode(NeutralMode.Brake);
 
     // Configure the encoders for both motors

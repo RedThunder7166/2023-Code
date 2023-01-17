@@ -6,9 +6,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Apriltags_Subsystem extends SubsystemBase {
+public class ApriltagsSubsystem extends SubsystemBase {
   /** Creates a new Apriltags_Subsystem. */
-  public Apriltags_Subsystem() {}
+  public ApriltagsSubsystem() {}
 
   @Override
   public void periodic() {
