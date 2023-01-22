@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class CargoPlacementCommand extends CommandBase {
   private final VisionSubsystem m_VisionSubsystem;
   private final Buttons m_Buttons;
-  private final int m_buttonPressed;
+  private final String m_buttonPressed;
 
   /** Creates a new CargoPlacementCommand. */
-  public CargoPlacementCommand(VisionSubsystem visionSubsystem, Buttons buttons, int buttonPressed) {
+  public CargoPlacementCommand(VisionSubsystem visionSubsystem, Buttons buttons, String buttonPressed) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_VisionSubsystem = visionSubsystem;
     m_Buttons = buttons;

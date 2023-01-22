@@ -14,20 +14,22 @@ public class Buttons extends SubsystemBase {
   /** Creates a new Buttons. */
   GenericHID m_buttonBoard = new GenericHID(5);
 
-  int kNodeOneButton = 1;
-  int kNodeTwoButton = 2;
-  int kNodeThreeButton = 3;
-  int kNodeFourButton = 4;
-  int kNodeFiveButton = 5;
-  int kNodeSixButton = 6;
-  int kNodeSevenButton = 7;
-  int kNodeEightButton = 8;
-  int kNodeNineButton = 9;
-  
-  int kResetButton = 10;
-  int kStopButton = 11;
-  int kWristUpButton = 12;
-  int kWristDownButton = 13;
+  String[] buttons = {
+    "nodeone",
+    "nodetwo",
+    "nodethree",
+    "nodefour",
+    "nodefive",
+    "nodesix",
+    "nodeseven",
+    "nodeeight",
+    "nodenine",
+
+    "resetbutton",
+    "stopbutton",
+    "wristup",
+    "wristdown"
+  };
 
   public Buttons() {
   }
@@ -35,79 +37,24 @@ public class Buttons extends SubsystemBase {
     return m_buttonBoard.getRawButton(id);
   }
   public int getPressedId() {
-    for (int i = 1; i < 14; i++) {
-      if (isPressed(i)) {
-        return i;
+    for (int id = 0; id < buttons.length; id++){
+      // add one to id because arrays start at 0, while button board starts at 1
+      if (isPressed(id + 1)) {
+        return id + 1;
       }
     }
     return 0;
+  }
+  public String getPressedName(){
+    int index = getPressedId() - 1;
+    if (index < 0) {
+      return "none";
+    }
+    return buttons[index];
   }
   
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    // if (m_buttonBoard.getRawButton(1)) {
-    //   SmartDashboard.putBoolean("Button one?", true);
-    // } else {
-    //   SmartDashboard.putBoolean("Button one?", false);
-    // }
-
-    // if (isPressed(kNodeOneButton)) {
-    //   SmartDashboard.putBoolean("Button one?", true);
-    // } else {
-       
-    //   SmartDashboard.putBoolean("Button one?", false);
-    // }
-    // if (isPressed(kNodeTwoButton)) {
-    //   SmartDashboard.putBoolean("Button two?", true);
-    // } else {
-    //   SmartDashboard.putBoolean("Button two?", false);
-    // }
-    // if (isPressed(kNodeThreeButton)) {
-
-    // } else {
-      
-    // }
-    // if (isPressed(kNodeFourButton)) {
-
-    // } else {
-      
-    // }
-    // if (isPressed(kNodeFiveButton)) {
-
-    // } else {
-      
-    // }
-    // if (isPressed(kNodeSixButton)) {
-
-    // } else {
-      
-    // }
-    // if (isPressed(kNodeSevenButton)) {
-
-    // } else {
-      
-    // }
-    // if (isPressed(kNodeEightButton)) {
-
-    // } else {
-      
-    // }
-    // if (isPressed(kNodeNineButton)) {
-
-    // } else {
-      
-    // }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
