@@ -116,7 +116,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
 
-    PathPlannerTrajectory traj = PathPlanner.loadPath("Square", new PathConstraints(2, 3));
+    PathPlannerTrajectory traj = PathPlanner.loadPath("2 cones", new PathConstraints(2, 3));
 
     return m_robotDrive.followTrajectoryCommand(traj, true);
 
